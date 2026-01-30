@@ -1,7 +1,7 @@
 import express from 'express';
 
 import sitemapRoutes from './routes/sitemapRoutes';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler } from './middleware/errorHandler.middleware';
 
 const app = express();
 

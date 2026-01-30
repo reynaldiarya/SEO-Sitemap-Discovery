@@ -5,4 +5,4 @@ export type {
   SitemapRequest,
   DiscoveryRequest,
   DiscoveryResponse,
-} from './sitemapTypes';
+} from './sitemap.types';

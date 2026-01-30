@@ -1,8 +1,8 @@
 import type { Request, Response, RequestHandler } from 'express';
 
-import { sitemapDiscoveryService } from '../services/sitemapDiscoveryService';
+import { sitemapDiscoveryService } from '../services/sitemapDiscovery.service';
 import { logger } from '../utils/logger';
-import type { DiscoveryRequest, DiscoveryResponse } from '../types/sitemapTypes';
+import type { DiscoveryRequest, DiscoveryResponse } from '../types/sitemap.types';
 
 /**
  * Controller untuk menemukan sitemap dari sebuah domain.

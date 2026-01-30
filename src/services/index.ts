@@ -1,2 +1,2 @@
-export { sitemapService, SitemapService } from './sitemapService';
-export { sitemapDiscoveryService, SitemapDiscoveryService } from './sitemapDiscoveryService';
+export { sitemapService, SitemapService } from './sitemapExtract.service';
+export { sitemapDiscoveryService, SitemapDiscoveryService } from './sitemapDiscovery.service';

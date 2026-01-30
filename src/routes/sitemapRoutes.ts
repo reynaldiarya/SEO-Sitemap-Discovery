@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
-import { extractSitemapController } from '../controllers/sitemapController';
-import { discoverSitemapController } from '../controllers/sitemapDiscoveryController';
+import { extractSitemapController } from '../controllers/sitemapExtract.controller';
+import { discoverSitemapController } from '../controllers/sitemapDiscovery.controller';
 import { sitemapSchema, discoverySchema } from '../schemas';
-import { validateRequest } from '../middleware/validateRequest';
+import { validateRequest } from '../middleware/validateRequest.middleware';
 
 const router = Router();
 
-router.post('/', validateRequest(sitemapSchema), extractSitemapController);
+router.post('/extract', validateRequest(sitemapSchema), extractSitemapController);
 router.post('/discovery', validateRequest(discoverySchema), discoverSitemapController);
 
 export default router;

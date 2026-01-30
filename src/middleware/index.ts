@@ -1,2 +1,2 @@
-export { errorHandler } from './errorHandler';
-export { validateRequest } from './validateRequest';
+export { errorHandler } from './errorHandler.middleware';
+export { validateRequest } from './validateRequest.middleware';

@@ -239,7 +239,7 @@ Extract keywords from URL slugs in a sitemap XML file.
 #### Request
 
 ```http
-POST /sitemap
+POST /sitemap/extract
 Content-Type: application/json
 ```
 
@@ -286,7 +286,7 @@ Content-Type: application/json
 **cURL (JSON output):**
 
 ```bash
-curl -X POST http://localhost:3003/sitemap \
+curl -X POST http://localhost:3003/sitemap/extract \
   -H "Content-Type: application/json" \
   -d '{"sitemapUrl": "https://example.com/sitemap.xml"}'
 ```
@@ -294,7 +294,7 @@ curl -X POST http://localhost:3003/sitemap \
 **cURL (Plain text output):**
 
 ```bash
-curl -X POST http://localhost:3003/sitemap \
+curl -X POST http://localhost:3003/sitemap/extract \
   -H "Content-Type: application/json" \
   -d '{"sitemapUrl": "https://example.com/sitemap.xml", "format": "text"}'
 ```

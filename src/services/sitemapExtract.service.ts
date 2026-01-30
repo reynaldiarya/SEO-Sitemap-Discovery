@@ -7,7 +7,7 @@ import type {
   ExtractionResponse,
   KeywordResult,
   SitemapIndexResponse,
-} from '../types/sitemapTypes';
+} from '../types/sitemap.types';
 
 interface SitemapUrlEntry {
   loc: string[];

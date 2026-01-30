@@ -1,7 +1,7 @@
 import type { Request, Response, RequestHandler } from 'express';
 
-import { sitemapService } from '../services/sitemapService';
-import type { SitemapRequest, ExtractionResponse } from '../types/sitemapTypes';
+import { sitemapService } from '../services/sitemapExtract.service';
+import type { SitemapRequest, ExtractionResponse } from '../types/sitemap.types';
 import { logger } from '../utils/logger';
 
 /**

@@ -1,2 +1,2 @@
-export { extractSitemapController } from './sitemapController';
-export { discoverSitemapController } from './sitemapDiscoveryController';
+export { extractSitemapController } from './sitemapExtract.controller';
+export { discoverSitemapController } from './sitemapDiscovery.controller';
