@@ -20,13 +20,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/cheerio": "^0.22.35",
-    "axios": "^1.13.2",
-    "cheerio": "^1.2.0",
+    "axios": "^1.13.4",
     "express": "^5.2.1",
-    "puppeteer": "^24.36.0",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "winston": "^3.19.0",
     "xml2js": "^0.6.2",
     "zod": "^4.3.6"
@@ -34,16 +29,16 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.6",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.1.0",
     "@types/xml2js": "^0.4.14",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.0"
+    "typescript-eslint": "^8.54.0"
   }
 }

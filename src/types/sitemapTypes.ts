@@ -23,3 +23,17 @@ export interface SitemapRequest {
   sitemapUrl: string;
   format?: 'json' | 'text';
 }
+
+export interface DiscoveryRequest {
+  domain: string;
+}
+
+export interface DiscoveryResponse {
+  domain: string;
+  sitemaps: string[];
+  checkedPaths: {
+    url: string;
+    found: boolean;
+    status: number;
+  }[];
+}
