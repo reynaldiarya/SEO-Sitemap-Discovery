@@ -1,17 +1,8 @@
 import type { Request, Response, RequestHandler } from 'express';
-import { z } from 'zod';
 
 import { sitemapService } from '../services/sitemapService';
 import type { SitemapRequest, ExtractionResponse } from '../types/sitemapTypes';
 import { logger } from '../utils/logger';
-
-// Schema validasi URL sitemap
-export const sitemapSchema = z.object({
-  body: z.object({
-    sitemapUrl: z.string().url('Invalid sitemap URL'),
-    format: z.string().optional(), // Opsi format output (json/text)
-  }),
-});
 
 /**
  * Controller untuk mengekstrak keyword dari sitemap XML.

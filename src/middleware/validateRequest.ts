@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
-import type { ZodSchema } from 'zod';
+import { ZodError, type ZodSchema, type ZodIssue } from 'zod';
 
 import { logger } from '../utils/logger';
 
@@ -9,7 +8,7 @@ import { logger } from '../utils/logger';
  * Memastikan data yang dikirim user sesuai format yang diharapkan.
  */
 export const validateRequest =
-  (schema: ZodSchema) => (req: Request, res: Response, next: NextFunction) => {
+  (schema: ZodSchema<unknown>) => (req: Request, res: Response, next: NextFunction) => {
     try {
       // Coba parse (validasi) body, query, dan params
       schema.parse({
@@ -21,13 +20,12 @@ export const validateRequest =
       next();
     } catch (error) {
       if (error instanceof ZodError) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        logger.warn(`Validation Error: ${JSON.stringify((error as any).errors)}`);
+        const issues: ZodIssue[] = error.issues;
+        logger.warn(`Validation Error: ${JSON.stringify(issues)}`);
         return res.status(400).json({
           error: 'Validation Error',
           // Kembalikan detail error agar user tahu field mana yang salah
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          details: (error as any).errors.map((e: any) => ({
+          details: issues.map((e: ZodIssue) => ({
             path: e.path,
             message: e.message,
           })),

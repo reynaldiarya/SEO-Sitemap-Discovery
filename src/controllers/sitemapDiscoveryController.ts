@@ -1,22 +1,12 @@
 import type { Request, Response, RequestHandler } from 'express';
-import { z } from 'zod';
 
 import { sitemapDiscoveryService } from '../services/sitemapDiscoveryService';
 import { logger } from '../utils/logger';
 import type { DiscoveryRequest, DiscoveryResponse } from '../types/sitemapTypes';
 
-export const discoverySchema = z.object({
-  body: z.object({
-    domain: z
-      .string()
-      .min(1, 'Domain is required')
-      .refine((val) => {
-        // Simple regex to validate domain-like structure, though discovery service handles http/https adding
-        return /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}|^(https?:\/\/)/.test(val);
-      }, 'Invalid domain format'),
-  }),
-});
-
+/**
+ * Controller untuk menemukan sitemap dari sebuah domain.
+ */
 export const discoverSitemapController: RequestHandler = async (
   req: Request<Record<string, unknown>, unknown, DiscoveryRequest>,
   res: Response

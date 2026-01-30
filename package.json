@@ -18,7 +18,7 @@
     "seo"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.13.4",
     "express": "^5.2.1",

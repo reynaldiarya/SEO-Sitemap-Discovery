@@ -1,10 +1,8 @@
 import { Router } from 'express';
 
-import { extractSitemapController, sitemapSchema } from '../controllers/sitemapController';
-import {
-  discoverSitemapController,
-  discoverySchema,
-} from '../controllers/sitemapDiscoveryController';
+import { extractSitemapController } from '../controllers/sitemapController';
+import { discoverSitemapController } from '../controllers/sitemapDiscoveryController';
+import { sitemapSchema, discoverySchema } from '../schemas';
 import { validateRequest } from '../middleware/validateRequest';
 
 const router = Router();
