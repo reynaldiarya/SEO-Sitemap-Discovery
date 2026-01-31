@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import { ZodError, type ZodSchema, type ZodIssue } from 'zod';
 
-import { logger } from '../utils/logger';
+import { logger } from '../utils';
 
 /**
  * Middleware untuk validasi request menggunakan library Zod.

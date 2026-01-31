@@ -1,8 +1,8 @@
 import type { Request, Response, RequestHandler } from 'express';
 
-import { sitemapService } from '../services/sitemapExtract.service';
-import type { SitemapRequest, ExtractionResponse } from '../types/sitemap.types';
-import { logger } from '../utils/logger';
+import { sitemapService } from '../services';
+import type { SitemapRequest, ExtractionResponse } from '../types';
+import { logger } from '../utils';
 
 /**
  * Controller untuk mengekstrak keyword dari sitemap XML.

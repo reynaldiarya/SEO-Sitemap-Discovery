@@ -2,12 +2,8 @@ import axios from 'axios';
 import * as xml2js from 'xml2js';
 import { URL } from 'url';
 
-import { extractKeywords } from '../utils/extractor';
-import type {
-  ExtractionResponse,
-  KeywordResult,
-  SitemapIndexResponse,
-} from '../types/sitemap.types';
+import { extractKeywords } from '../utils';
+import type { ExtractionResponse, KeywordResult, SitemapIndexResponse } from '../types';
 
 interface SitemapUrlEntry {
   loc: string[];
