@@ -1,6 +1,6 @@
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import importPlugin from 'eslint-plugin-import';
+import tseslint, { configs as tsConfigs } from 'typescript-eslint';
+import eslintPluginImportX, { flatConfigs } from 'eslint-plugin-import-x';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import globals from 'globals';
 import process from 'node:process';
@@ -13,8 +13,9 @@ export default tseslint.config(
 
   // Base configs
   eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintConfigPrettier, // harus terakhir untuk override formatting rules
+  ...tsConfigs.recommended,
+  flatConfigs.recommended,
+  flatConfigs.typescript,
 
   // TypeScript files configuration
   {
@@ -31,7 +32,7 @@ export default tseslint.config(
       },
     },
     plugins: {
-      import: importPlugin,
+      import: eslintPluginImportX,
     },
     settings: {
       'import/resolver': {
@@ -82,5 +83,6 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },
-  }
+  },
+  eslintConfigPrettier
 );
