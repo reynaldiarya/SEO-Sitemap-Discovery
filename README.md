@@ -1,191 +1,101 @@
-<div align="center">
+# SEO Sitemap Discovery
 
-# 🗺️ SEO Sitemap Discovery
+A high-performance SEO utility for automated sitemap discovery and URL-based keyword extraction.
 
-**A TypeScript API for discovering sitemaps and extracting keywords from any website**
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933.svg" />
+  <img src="https://img.shields.io/badge/TypeScript-6.x-3178C6.svg" />
+  <a href="LICENSE">
+    <img alt="License" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
+  </a>
+</p>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
-[![Express.js](https://img.shields.io/badge/Express.js-5.2-lightgrey.svg)](https://expressjs.com/)
+## Description
 
-[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [API Documentation](#-api-documentation)
+SEO Sitemap Discovery is a specialized Node.js application designed to streamline technical SEO workflows. It solves the challenge of locating hidden sitemaps across complex domains and programmatically extracting meaningful keywords from URL structures. By automating the discovery process and parsing XML data into structured formats, it provides SEO professionals and developers with a robust tool for site auditing, competitor analysis, and content strategy mapping.
 
-</div>
+## Features
 
----
+- **Automated Sitemap Discovery** - Intelligently identifies sitemap locations using common patterns and robots.txt analysis
+- **URL Keyword Extraction** - Parses XML sitemaps to extract and normalize keywords directly from URL paths
+- **Flexible Output Formats** - Supports both structured JSON for programmatic use and plain text for quick analysis
+- **Sitemap Index Support** - Recursively processes sitemap indices to ensure comprehensive data extraction
+- **High Performance** - Built with an asynchronous architecture to handle large-scale sitemaps efficiently
+- **Robust Validation** - Ensures data integrity through strict Zod-based request schema validation
+- **Enterprise Logging** - Comprehensive error tracking and operational insights powered by Winston
 
-## 📋 Table of Contents
+## Tech Stack
 
-- [Overview](#-overview)
-- [Features](#-features)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [Usage](#-usage)
-- [API Documentation](#-api-documentation)
-- [Architecture](#-architecture)
-- [Tech Stack](#-tech-stack)
-- [Development](#-development)
-- [License](#-license)
+- **Backend Runtime**: Node.js (v20+)
+- **Language**: TypeScript 6
+- **Web Framework**: Express.js 5
+- **HTTP Client**: Axios
+- **Data Validation**: Zod
+- **XML Parsing**: XML2JS
+- **Logging**: Winston
+- **Development Tools**: TSX, ESLint, Prettier
 
----
+## Installation Guide
 
-## 🌟 Overview
+### Prerequisites
 
-**SEO Sitemap Discovery** is a TypeScript-based Node.js API designed to help SEO professionals and developers discover sitemaps from any website and extract keywords from sitemap URLs. Similar to tools like [seomator.com/sitemap-finder](https://seomator.com/sitemap-finder), this application provides automated sitemap discovery and keyword extraction capabilities.
+- Node.js 20.x or higher
+- npm 10.x or higher
 
-### Key Capabilities
+### Steps
 
-- 🔍 **Automatic Sitemap Discovery**: Finds sitemaps by checking robots.txt and common paths
-- 📝 **Keyword Extraction**: Extracts keywords from URL slugs in sitemaps
-- 🔄 **Sitemap Index Support**: Handles both standard sitemaps and sitemap indexes
-- ⚡ **Fast & Efficient**: Concurrent checking of multiple sitemap paths
-
----
-
-## ✨ Features
-
-### Core Capabilities
-
-- **🔍 Sitemap Discovery**:
-  - Parses `robots.txt` for sitemap declarations
-  - Checks common sitemap paths: `/sitemap.xml`, `/sitemap_index.xml`, `/wp-sitemap.xml`, etc.
-  - Supports subdirectory scanning (e.g., `example.com/blog/sitemap.xml`)
-  - Reports checked paths with HTTP status codes
-
-- **📝 Keyword Extraction**:
-  - Extracts keywords from URL slugs in sitemaps
-  - Counts keyword frequency across all URLs
-  - Sorts keywords by occurrence count
-  - Supports JSON and plain text output formats
-
-- **🔄 Sitemap Index Handling**:
-  - Detects sitemap index files automatically
-  - Returns list of child sitemaps for further processing
-
----
-
-## 📋 Prerequisites
-
-| Requirement         | Version  | Required |
-| ------------------- | -------- | -------- |
-| **Node.js**         | ≥ 18.0.0 | ✅ Yes   |
-| **npm** or **yarn** | Latest   | ✅ Yes   |
-
----
-
-## 🚀 Installation
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/reynaldiarya/SEO-Sitemap-Discovery.git
-cd SEO-Sitemap-Discovery
-```
-
-### 2️⃣ Install Dependencies
+1. Clone the repository to your local machine
+2. Install the required dependencies
 
 ```bash
 npm install
 ```
 
-### 3️⃣ Verify Installation
-
-```bash
-npm run lint
-```
-
----
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-1. **Create your `.env` file:**
+3. Configure the environment variables
 
 ```bash
 cp .env.example .env
 ```
 
-2. **Configure the following variables:**
+4. Configure your preferred port in the `.env` file (defaults to 3003)
+5. Build the project
 
-```env
-# Server Configuration
-PORT=3003
-NODE_ENV=development
+```bash
+npm run build
 ```
 
-### Configuration Options
+6. Start the application
 
-| Variable   | Description        | Default       | Required |
-| ---------- | ------------------ | ------------- | -------- |
-| `PORT`     | Server port number | `3003`        | No       |
-| `NODE_ENV` | Environment mode   | `development` | No       |
+```bash
+npm start
+```
 
----
-
-## 🎯 Usage
-
-### Development Mode
-
-Run the application with hot-reloading:
+For development with hot-reloading:
 
 ```bash
 npm run dev
 ```
 
-The server will start at `http://localhost:3003` (or your configured port).
+## Configuration
 
-### Production Mode
+The application uses environment variables for configuration. These are managed via a `.env` file in the root directory.
 
-Build and run the application for production:
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | The port on which the API server will run | `3003` |
+| `NODE_ENV` | The environment mode (development or production) | `production` |
 
-```bash
-# Build the TypeScript project
-npm run build
+## Usage
 
-# Start the production server
-npm start
-```
-
-### Code Quality
-
-```bash
-# Run ESLint
-npm run lint
-
-# Fix linting issues automatically
-npm run lint:fix
-
-# Format code with Prettier
-npm run format
-```
-
----
-
-## 📖 API Documentation
-
-### Base URL
-
-```
-http://localhost:3003/sitemap
-```
-
----
+The application provides a RESTful API for sitemap operations. All endpoints expect and return JSON by default.
 
 ### 1. Discover Sitemaps
 
-Automatically discover all sitemaps for a given domain.
+Search for sitemaps associated with a specific domain.
 
-#### Request
-
-```http
-POST /sitemap/discovery
-Content-Type: application/json
-```
-
-#### Request Body
+- **Endpoint**: `POST /sitemap/discovery`
+- **Body**:
 
 ```json
 {
@@ -193,57 +103,20 @@ Content-Type: application/json
 }
 ```
 
-#### Parameters
-
-| Parameter | Type   | Description           | Required |
-| --------- | ------ | --------------------- | -------- |
-| `domain`  | string | Target domain to scan | Yes      |
-
-#### Response
-
-```json
-{
-  "domain": "https://example.com",
-  "sitemaps": ["https://example.com/sitemap.xml", "https://example.com/sitemap_index.xml"],
-  "checkedPaths": [
-    {
-      "url": "https://example.com/robots.txt",
-      "found": true,
-      "status": 200
-    },
-    {
-      "url": "https://example.com/sitemap.xml",
-      "found": true,
-      "status": 200
-    }
-  ]
-}
-```
-
-#### Example Usage
-
-**cURL:**
+- **Sample Request**:
 
 ```bash
 curl -X POST http://localhost:3003/sitemap/discovery \
-  -H "Content-Type: application/json" \
-  -d '{"domain": "example.com"}'
+     -H "Content-Type: application/json" \
+     -d '{"domain": "google.com"}'
 ```
 
----
+### 2. Extract Keywords
 
-### 2. Extract Keywords from Sitemap
+Parse a specific sitemap URL to extract URLs and keywords.
 
-Extract keywords from URL slugs in a sitemap XML file.
-
-#### Request
-
-```http
-POST /sitemap/extract
-Content-Type: application/json
-```
-
-#### Request Body
+- **Endpoint**: `POST /sitemap/extract`
+- **Body**:
 
 ```json
 {
@@ -252,169 +125,58 @@ Content-Type: application/json
 }
 ```
 
-#### Parameters
-
-| Parameter    | Type   | Description                   | Required | Default |
-| ------------ | ------ | ----------------------------- | -------- | ------- |
-| `sitemapUrl` | string | URL of the sitemap XML        | Yes      | -       |
-| `format`     | string | Output format: `json`, `text` | No       | `json`  |
-
-#### Response (Standard Sitemap)
-
-```json
-{
-  "type": "extraction",
-  "totalUrls": 150,
-  "extractedKeywords": 120,
-  "ignoredUrls": 30,
-  "keywordLists": ["seo tools", "keyword research", "sitemap generator"]
-}
-```
-
-#### Response (Sitemap Index)
-
-```json
-{
-  "message": "This is a sitemap index.",
-  "type": "sitemapindex",
-  "sitemaps": ["https://example.com/sitemap-posts.xml", "https://example.com/sitemap-pages.xml"]
-}
-```
-
-#### Example Usage
-
-**cURL (JSON output):**
+- **Sample Request**:
 
 ```bash
 curl -X POST http://localhost:3003/sitemap/extract \
-  -H "Content-Type: application/json" \
-  -d '{"sitemapUrl": "https://example.com/sitemap.xml"}'
+     -H "Content-Type: application/json" \
+     -d '{"sitemapUrl": "https://example.com/sitemap.xml", "format": "json"}'
 ```
 
-**cURL (Plain text output):**
+## Project Structure
 
-```bash
-curl -X POST http://localhost:3003/sitemap/extract \
-  -H "Content-Type: application/json" \
-  -d '{"sitemapUrl": "https://example.com/sitemap.xml", "format": "text"}'
-```
-
----
-
-## 🏗️ Architecture
-
-### Project Structure
-
-```
-SEO-Sitemap-Discovery/
+```text
+/
 ├── src/
-│   ├── controllers/          # Request handlers
-│   │   ├── sitemapController.ts
-│   │   └── sitemapDiscoveryController.ts
-│   ├── services/             # Business logic
-│   │   ├── sitemapService.ts
-│   │   └── sitemapDiscoveryService.ts
-│   ├── routes/               # API routes
-│   │   └── sitemapRoutes.ts
-│   ├── types/                # TypeScript type definitions
-│   │   └── sitemapTypes.ts
-│   ├── middleware/           # Express middleware
-│   ├── utils/                # Utility functions
-│   ├── config/               # Configuration
-│   ├── app.ts                # Express app setup
-│   └── index.ts              # Application entry point
-├── dist/                     # Compiled JavaScript (generated)
-├── .env                      # Environment variables (gitignored)
-├── .env.example              # Environment template
-├── tsconfig.json             # TypeScript configuration
-├── package.json              # Project dependencies
-└── README.md                 # This file
+│   ├── controllers/      # Request handlers and response logic
+│   ├── routes/           # API endpoint definitions
+│   ├── services/         # Core business logic for discovery and extraction
+│   ├── schemas/          # Zod validation schemas for requests
+│   ├── middleware/       # Custom Express middleware (validation, error handling)
+│   ├── utils/            # Shared utilities and logger configuration
+│   ├── types/            # TypeScript interface and type definitions
+│   ├── config/           # Application configuration management
+│   ├── app.ts            # Express application setup
+│   └── index.ts          # Server entry point
+├── dist/                 # Compiled JavaScript files
+└── tsconfig.json         # TypeScript configuration
 ```
 
-### Design Patterns
+## Scripts / Commands
 
-- **Service Layer Pattern**: Business logic separated from controllers
-- **Dependency Injection**: Services are injected into controllers
-- **Single Responsibility**: Each module handles one specific concern
-- **Type Safety**: Full TypeScript implementation with strict typing
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Starts the development server with hot-reloading using tsx |
+| `npm run build` | Compiles the TypeScript source code into the dist directory |
+| `npm start` | Runs the compiled production build |
+| `npm run format` | Formats the codebase using Prettier |
+| `npm run lint` | Analyzes code for potential errors and styling issues |
+| `npm run lint:fix` | Automatically fixes linting errors where possible |
 
----
+## Contributing
 
-## 🛠️ Tech Stack
+Contributions are welcome to improve the discovery algorithms or extraction logic.
 
-### Core Technologies
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/improvement`)
+3. Commit your changes (`git commit -m 'Add some improvement'`)
+4. Push to the branch (`git push origin feature/improvement`)
+5. Open a Pull Request
 
-| Technology     | Version | Purpose               |
-| -------------- | ------- | --------------------- |
-| **Node.js**    | ≥18.0.0 | Runtime environment   |
-| **TypeScript** | 5.9.3   | Type-safe development |
-| **Express.js** | 5.2.1   | Web framework         |
+## License
 
-### Data Processing
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for detailed terms and conditions.
 
-| Technology  | Version | Purpose      |
-| ----------- | ------- | ------------ |
-| **Axios**   | 1.13.2  | HTTP client  |
-| **xml2js**  | 0.6.2   | XML parsing  |
-| **Cheerio** | 1.2.0   | HTML parsing |
+## Author
 
-### Utilities
-
-| Technology  | Version | Purpose                |
-| ----------- | ------- | ---------------------- |
-| **Winston** | 3.19.0  | Logging                |
-| **Zod**     | 4.3.6   | Schema validation      |
-| **dotenv**  | 17.2.3  | Environment management |
-
-### Development Tools
-
-| Technology   | Version | Purpose              |
-| ------------ | ------- | -------------------- |
-| **ESLint**   | 9.39.2  | Code linting         |
-| **Prettier** | 3.8.0   | Code formatting      |
-| **tsx**      | 4.21.0  | TypeScript execution |
-
----
-
-## 👨‍💻 Development
-
-### Getting Started
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes**
-4. **Run linting**: `npm run lint`
-5. **Commit your changes**: `git commit -m 'Add amazing feature'`
-6. **Push to the branch**: `git push origin feature/amazing-feature`
-7. **Open a Pull Request**
-
-### Code Style
-
-This project uses:
-
-- **ESLint** for code linting
-- **Prettier** for code formatting
-- **TypeScript strict mode** for type safety
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 📬 Contact & Support
-
-- **GitHub**: [@reynaldiarya](https://github.com/reynaldiarya)
-- **Issues**: [Report a bug](https://github.com/reynaldiarya/SEO-Sitemap-Discovery/issues)
-
----
-
-<div align="center">
-
-**Built with ❤️ using TypeScript and Node.js**
-
-If this project helped you, consider giving it a ⭐!
-
-</div>
+Reynaldi Arya
