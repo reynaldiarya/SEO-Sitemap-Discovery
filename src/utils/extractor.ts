@@ -1,8 +1,8 @@
 /**
- * Fungsi utilitas untuk mengekstrak keyword dari URL (slug).
+ * Utility function to extract keywords from a URL slug.
  */
 export function extractKeywords(pathUrl: string | null | undefined): string | null {
-  if (!pathUrl || pathUrl === '/') return null; // Abaikan homepage
+  if (!pathUrl || pathUrl === '/') return null; // Ignore homepage
 
   try {
     pathUrl = decodeURIComponent(pathUrl);
@@ -10,34 +10,34 @@ export function extractKeywords(pathUrl: string | null | undefined): string | nu
     return null;
   }
 
-  // 1. Hapus ekstensi file (.html, .php, dll)
+  // 1. Remove file extensions (e.g., .html, .php, etc.)
   pathUrl = pathUrl.replace(/\.(html|php|htm|xml|aspx)$/i, '');
 
-  // 2. Pisahkan berdasarkan slash '/'
+  // 2. Split path by slash '/'
   const segments = pathUrl.split('/').filter(Boolean);
 
-  // 3. Ambil segmen TERAKHIR yang bukan angka murni (biasanya ini judul artikel/halaman)
+  // 3. Retrieve the LAST segment that is not pure numeric (typically representing the article/page title)
   let targetSlug = '';
 
   for (let i = segments.length - 1; i >= 0; i--) {
     const s = segments[i];
     if (!s) continue;
-    // Jika segmen hanya berisi angka (contoh: /2023/ atau ID), jangan diambil, cari sebelumnya
+    // If the segment is numeric (e.g., year /2023/ or ID), skip it and check the preceding segment
     if (!/^\d+$/.test(s)) {
       targetSlug = s;
       break;
     }
   }
 
-  // Jika tidak ditemukan slug yang valid, kembalikan null
+  // If no valid slug is found, return null
   if (!targetSlug) return null;
 
-  // 4. Bersihkan slug menjadi kalimat yang bisa dibaca
-  // Ganti simbol (-_+) menjadi spasi
+  // 4. Clean the slug to construct a readable phrase
+  // Replace symbols (-_+) with spaces
   let readablePhrase = targetSlug.replace(/[-_+?=&]+/g, ' ');
   readablePhrase = readablePhrase.trim().toLowerCase();
 
-  // Filter kata-kata sistem yang umum dan bukan keyword konten
+  // Filter out common system words that do not represent content keywords
   const ignoreList = new Set(['index', 'default', 'home']);
   if (ignoreList.has(readablePhrase)) return null;
 

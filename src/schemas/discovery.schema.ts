@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 /**
- * Schema validasi untuk request discovery sitemap.
+ * Validation schema for sitemap discovery request.
  */
 export const discoverySchema = z.object({
   body: z.object({

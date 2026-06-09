@@ -1,4 +1,4 @@
-import winston from 'winston';
+import { addColors, createLogger, format, transports } from 'winston';
 
 const levels = {
   error: 0,
@@ -16,25 +16,23 @@ const colors = {
   debug: 'white',
 };
 
-winston.addColors(colors);
+addColors(colors);
 
-// Format log agar mudah dibaca: [Waktu] [Level]: [Pesan]
-const format = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  winston.format.colorize({ all: true }),
-  winston.format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
+// Format log output for readability: [Timestamp] [Level]: [Message]
+const loggerFormat = format.combine(
+  format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+  format.colorize({ all: true }),
+  format.printf((info) => `${info.timestamp} ${info.level}: ${info.message}`)
 );
 
-const transports = [new winston.transports.Console()];
-
 /**
- * Logger Configuration.
- * Menggantikan console.log biasa agar output lebih rapi dan berwarna.
- * Level 'debug' akan aktif hanya di mode development.
+ * Logger configuration using winston.
+ * Replaces console.log with formatted and colorized console outputs.
+ * The 'debug' level is active only in the development environment.
  */
-export const logger = winston.createLogger({
+export const logger = createLogger({
   level: process.env.NODE_ENV === 'development' ? 'debug' : 'warn',
   levels,
-  format,
-  transports,
+  format: loggerFormat,
+  transports: [new transports.Console()],
 });

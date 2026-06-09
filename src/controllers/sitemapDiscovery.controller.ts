@@ -5,7 +5,7 @@ import { logger } from '../utils';
 import type { DiscoveryRequest, DiscoveryResponse } from '../types';
 
 /**
- * Controller untuk menemukan sitemap dari sebuah domain.
+ * Controller to discover sitemaps for a given domain.
  */
 export const discoverSitemapController: RequestHandler = async (
   req: Request<Record<string, unknown>, unknown, DiscoveryRequest>,

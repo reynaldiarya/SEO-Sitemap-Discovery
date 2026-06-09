@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 /**
- * Schema validasi untuk request ekstraksi sitemap.
+ * Validation schema for sitemap extraction request.
  */
 export const sitemapSchema = z.object({
   body: z.object({
     sitemapUrl: z.string().url('Invalid sitemap URL'),
-    format: z.string().optional(), // Opsi format output (json/text)
+    format: z.string().optional(), // Optional output format (json/text)
   }),
 });
 

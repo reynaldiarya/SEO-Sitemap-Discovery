@@ -20,10 +20,7 @@ export class SitemapDiscoveryService {
   ];
 
   /**
-   * Discover sitemaps for a given domain
-   */
-  /**
-   * Discover sitemaps for a given domain or URL
+   * Discovers sitemaps for a given domain or URL.
    */
   public async discoverSitemaps(input: string): Promise<DiscoveryResponse> {
     const targetUrl = this.normalizeUrl(input);

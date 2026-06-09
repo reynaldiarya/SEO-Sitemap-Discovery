@@ -3,7 +3,7 @@
 A high-performance SEO utility for automated sitemap discovery and URL-based keyword extraction.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" />
+  <img src="https://img.shields.io/badge/version-1.0.1-blue.svg" />
   <img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933.svg" />
   <img src="https://img.shields.io/badge/TypeScript-6.x-3178C6.svg" />
   <a href="LICENSE">
@@ -81,9 +81,9 @@ npm run dev
 
 The application uses environment variables for configuration. These are managed via a `.env` file in the root directory.
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | The port on which the API server will run | `3003` |
+| Variable   | Description                                      | Default      |
+| ---------- | ------------------------------------------------ | ------------ |
+| `PORT`     | The port on which the API server will run        | `3003`       |
 | `NODE_ENV` | The environment mode (development or production) | `production` |
 
 ## Usage
@@ -154,14 +154,14 @@ curl -X POST http://localhost:3003/sitemap/extract \
 
 ## Scripts / Commands
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Starts the development server with hot-reloading using tsx |
-| `npm run build` | Compiles the TypeScript source code into the dist directory |
-| `npm start` | Runs the compiled production build |
-| `npm run format` | Formats the codebase using Prettier |
-| `npm run lint` | Analyzes code for potential errors and styling issues |
-| `npm run lint:fix` | Automatically fixes linting errors where possible |
+| Command            | Description                                                 |
+| ------------------ | ----------------------------------------------------------- |
+| `npm run dev`      | Starts the development server with hot-reloading using tsx  |
+| `npm run build`    | Compiles the TypeScript source code into the dist directory |
+| `npm start`        | Runs the compiled production build                          |
+| `npm run format`   | Formats the codebase using Prettier                         |
+| `npm run lint`     | Analyzes code for potential errors and styling issues       |
+| `npm run lint:fix` | Automatically fixes linting errors where possible           |
 
 ## Contributing
 

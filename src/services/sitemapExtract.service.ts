@@ -23,7 +23,7 @@ interface ParsedSitemap {
 }
 
 export class SitemapService {
-  // Fungsi helper untuk mengubah XML menjadi Object JavaScript
+  // Helper function to parse XML data into a JavaScript object
   private parseXml(xmlData: string): Promise<unknown> {
     const parser = new xml2js.Parser();
     return new Promise((resolve, reject) => {
@@ -35,8 +35,8 @@ export class SitemapService {
   }
 
   /**
-   * Mengekstrak data dari URL sitemap.
-   * Bisa menghandle sitemap biasa (urlset) atau sitemap index (list of sitemaps).
+   * Extracts data from a sitemap URL.
+   * Handles standard sitemaps (urlset) or sitemap indexes (list of sitemaps).
    */
   public async extractSitemap(
     sitemapUrl: string
@@ -44,7 +44,7 @@ export class SitemapService {
     const response = await axios.get(sitemapUrl);
     const result = (await this.parseXml(response.data)) as ParsedSitemap;
 
-    // Jika ini adalah sitemap index (kumpulan sitemap lain)
+    // If the sitemap is a sitemap index (a collection of other sitemaps)
     if (result.sitemapindex && result.sitemapindex.sitemap) {
       return {
         message: 'This is a sitemap index.',
@@ -53,7 +53,7 @@ export class SitemapService {
       };
     }
 
-    // Jika ini sitemap standar (berisi URL artikel/halaman)
+    // If the sitemap is a standard sitemap (containing page/article URLs)
     if (result.urlset && result.urlset.url) {
       return this.processUrlSet(result.urlset.url);
     }
@@ -62,12 +62,12 @@ export class SitemapService {
   }
 
   /**
-   * Memproses daftar URL dari sitemap untuk mengambil keyword.
+   * Processes a list of URLs from a sitemap to extract keywords.
    */
   private processUrlSet(entries: SitemapUrlEntry[]): ExtractionResponse {
     const urls: string[] = [];
     entries.forEach((entry) => {
-      // Ambil URL dari tag <loc>
+      // Extract the URL from the <loc> tag
       if (entry.loc && entry.loc[0]) {
         urls.push(entry.loc[0]);
       }
@@ -81,12 +81,12 @@ export class SitemapService {
         const parsedUrl = new URL(u);
         const path = parsedUrl.pathname;
 
-        // Ekstrak keyword dari slug URL
+        // Extract keywords from the URL slug
         if (path) {
           const phrase = extractKeywords(path);
 
           if (phrase) {
-            // Hitung frekuensi keyword
+            // Calculate keyword frequency
             phraseCounts[phrase] = (phraseCounts[phrase] || 0) + 1;
           } else {
             ignoredCount++;
@@ -97,7 +97,7 @@ export class SitemapService {
       }
     });
 
-    // Urutkan keyword berdasarkan frekuensi terbanyak
+    // Sort keywords by frequency in descending order
     const sortedPhrases: KeywordResult[] = Object.entries(phraseCounts)
       .map(([keyword, count]) => ({ keyword, count }))
       .sort((a, b) => b.count - a.count);

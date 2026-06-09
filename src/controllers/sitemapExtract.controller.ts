@@ -5,7 +5,7 @@ import type { SitemapRequest, ExtractionResponse } from '../types';
 import { logger } from '../utils';
 
 /**
- * Controller untuk mengekstrak keyword dari sitemap XML.
+ * Controller to extract keywords from an XML sitemap.
  */
 export const extractSitemapController: RequestHandler = async (
   req: Request<Record<string, unknown>, unknown, SitemapRequest>,
@@ -16,7 +16,7 @@ export const extractSitemapController: RequestHandler = async (
   try {
     const result = await sitemapService.extractSitemap(sitemapUrl);
 
-    // Jika hasilnya adalah sitemap index (kumpulan sitemap), kembalikan langsung
+    // If the result is a sitemap index (collection of sitemaps), return it directly
     if (result.type === 'sitemapindex') {
       res.json(result);
       return;
@@ -24,7 +24,7 @@ export const extractSitemapController: RequestHandler = async (
 
     const extractionResult = result as ExtractionResponse;
 
-    // Jika user minta format text (biasanya untuk copy-paste), kita format jadi string
+    // If the client requests plain text format, format the keywords as a string
     if (format === 'text' && extractionResult.keywordLists) {
       res.header('Content-Type', 'text/plain');
       const textResponse = Array.isArray(extractionResult.keywordLists)
@@ -34,7 +34,7 @@ export const extractSitemapController: RequestHandler = async (
       return;
     }
 
-    // Default return JSON
+    // Return the response as JSON by default
     res.json(extractionResult);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error';
