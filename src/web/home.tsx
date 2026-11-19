@@ -111,30 +111,37 @@ export function Home() {
           name="description"
           content="Find a website’s sitemaps and extract page URLs and keywords from their paths."
         />
-        <title>Sitemap Discovery</title>
-        <link
-          rel="preload"
-          href="/assets/bricolage-grotesque.woff2"
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous"
-        />
+        <title>SEO Sitemap Discovery</title>
         <link rel="stylesheet" href="/assets/site.css" />
         <script type="module" src="/assets/tool.js"></script>
       </head>
-      <body class="bg-paper text-ink antialiased">
+      <body class="bg-paper font-sans text-ink antialiased">
         <a href="#tool" class="skip-link">
           Skip to the tool
         </a>
         <header class="masthead bg-violet text-white">
-          <div class="page-width flex min-h-16 items-center justify-between gap-4 sm:min-h-[4.25rem]">
+          <div class="page-width flex min-h-16 items-center justify-between gap-3 sm:min-h-[4.25rem] sm:gap-4">
             <span class="wordmark flex items-center gap-2.5 font-semibold">
-              <span aria-hidden="true" class="brand-mark">
-                <i />
-                <i />
-                <i />
-              </span>
-              Sitemap Discovery
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffe49a"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-sitemap"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M3 17a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2" />
+                <path d="M15 17a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2" />
+                <path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2l0 -2" />
+                <path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1" />
+                <path d="M12 9l0 3" />
+              </svg>
+              <span>SEO Sitemap Discovery</span>
             </span>
             <a href="#how-it-works" class="how-link inline-flex items-center gap-2">
               How it works <Arrow down />
@@ -146,7 +153,7 @@ export function Home() {
           <section aria-labelledby="hero-heading" class="bg-violet text-white">
             <div class="page-width hero-grid">
               <div>
-                <h1 id="hero-heading" class="hero-title font-display font-bold">
+                <h1 id="hero-heading" class="hero-title font-bold">
                   <span class="block">Find the map.</span>{' '}
                   <span class="block text-gold">Get the URLs.</span>
                 </h1>
@@ -161,7 +168,7 @@ export function Home() {
           <SitemapTool />
 
           <section id="how-it-works" aria-labelledby="how-heading" class="page-width how-section">
-            <h2 id="how-heading" class="how-title font-display font-bold">
+            <h2 id="how-heading" class="how-title font-bold">
               How it works
             </h2>
             <div class="how-steps grid gap-x-8 gap-y-6 sm:grid-cols-2">

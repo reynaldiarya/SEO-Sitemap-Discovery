@@ -11,6 +11,11 @@
 # deps
 node_modules/
 
+# build
+dist/
+/public/assets/site.css
+/public/assets/tool.js
+
 # env
 .env
 .env.production
