@@ -3,8 +3,8 @@
 A high-performance SEO utility for automated sitemap discovery and URL-based keyword extraction.
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.1-blue.svg" />
-  <img src="https://img.shields.io/badge/Node.js-%3E%3D18.0.0-339933.svg" />
+  <img src="https://img.shields.io/badge/version-1.1.0-blue.svg" />
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D22.0.0-339933.svg" />
   <img src="https://img.shields.io/badge/TypeScript-6.x-3178C6.svg" />
   <a href="LICENSE">
     <img alt="License" src="https://img.shields.io/badge/license-MIT-yellow.svg" target="_blank" />
@@ -17,121 +17,95 @@ SEO Sitemap Discovery is a specialized Node.js application designed to streamlin
 
 ## Features
 
-- **Automated Sitemap Discovery** - Intelligently identifies sitemap locations using common patterns and robots.txt analysis
-- **URL Keyword Extraction** - Parses XML sitemaps to extract and normalize keywords directly from URL paths
-- **Flexible Output Formats** - Supports both structured JSON for programmatic use and plain text for quick analysis
-- **Sitemap Index Support** - Recursively processes sitemap indices to ensure comprehensive data extraction
-- **High Performance** - Built with an asynchronous architecture to handle large-scale sitemaps efficiently
-- **Robust Validation** - Ensures data integrity through strict Zod-based request schema validation
-- **Enterprise Logging** - Comprehensive error tracking and operational insights powered by Winston
+- **Automated Sitemap Discovery** - Reads `robots.txt` and checks common sitemap paths.
+- **URL and Keyword Extraction** - Lists page URLs and derives keyword phrases from their paths.
+- **Flexible Output Formats** - Returns a JSON keyword summary, plain-text keywords, or page URLs and keywords together.
+- **Sitemap Index Support** - Lets you choose child sitemaps from an index.
+- **Browser Tool** - Runs discovery and extraction on the same Hono app as the API.
+- **Request Validation** - Validates API requests with Zod.
+- **Logging** - Records errors and diagnostics with Winston.
 
 ## Tech Stack
 
-- **Backend Runtime**: Node.js (v20+)
-- **Language**: TypeScript 6
-- **Web Framework**: Express.js 5
-- **HTTP Client**: Axios
-- **Data Validation**: Zod
-- **XML Parsing**: XML2JS
-- **Logging**: Winston
-- **Development Tools**: TSX, ESLint, Prettier
+- **Backend Runtime** - Node.js 24
+- **Language** - TypeScript 6
+- **Web Framework** - Hono with `@hono/node-server`
+- **Frontend** - Hono JSX and Tailwind CSS
+- **HTTP Client** - Axios
+- **Data Validation** - Zod
+- **XML Parsing** - XML2JS
+- **Logging** - Winston
+- **Development Tools** - tsx, esbuild, ESLint, and Prettier
 
 ## Installation Guide
 
 ### Prerequisites
 
-- Node.js 20.x or higher
+- Node.js 22.x or higher
 - npm 10.x or higher
 
 ### Steps
 
-1. Clone the repository to your local machine
-2. Install the required dependencies
+1. Clone the repository and open its root directory.
+2. Install the locked dependencies, copy the environment template, and start the development server.
 
-```bash
-npm install
-```
+   ```bash
+   npm ci
+   cp .env.example .env
+   npm run dev
+   ```
 
-3. Configure the environment variables
+   In PowerShell, use `Copy-Item .env.example .env` for the copy step.
 
-```bash
-cp .env.example .env
-```
+3. Open [http://localhost:3000](http://localhost:3000).
 
-4. Configure your preferred port in the `.env` file (defaults to 3003)
-5. Build the project
+To run the local production build, use these commands.
 
 ```bash
 npm run build
-```
-
-6. Start the application
-
-```bash
 npm start
-```
-
-For development with hot-reloading:
-
-```bash
-npm run dev
 ```
 
 ## Configuration
 
-The application uses environment variables for configuration. These are managed via a `.env` file in the root directory.
+The local server reads `.env` from the repository root. Copy `.env.example` to customize these settings.
 
-| Variable   | Description                                      | Default      |
-| ---------- | ------------------------------------------------ | ------------ |
-| `PORT`     | The port on which the API server will run        | `3003`       |
-| `NODE_ENV` | The environment mode (development or production) | `production` |
+| Variable   | Description                                                          | Template value |
+| ---------- | -------------------------------------------------------------------- | -------------- |
+| `PORT`     | Local port for the browser tool and API. It defaults to `3000`.      | `3000`         |
+| `NODE_ENV` | Set to `development` for detailed logs and local API error messages. | `production`   |
 
 ## Usage
 
-The application provides a RESTful API for sitemap operations. All endpoints expect and return JSON by default.
+In the browser, enter a website URL or domain and select **Discover sitemaps**. Choose a sitemap to view its page URLs and keywords. If you choose an index, its child sitemaps appear in the list.
+
+The browser calls the same two API routes. Send API requests with `Content-Type: application/json`.
 
 ### 1. Discover Sitemaps
 
-Search for sitemaps associated with a specific domain.
-
-- **Endpoint**: `POST /sitemap/discovery`
-- **Body**:
-
-```json
-{
-  "domain": "example.com"
-}
-```
-
-- **Sample Request**:
+`POST /sitemap/discovery` accepts a domain or website URL in `domain` and returns `domain`, `sitemaps`, and `checkedPaths`.
 
 ```bash
-curl -X POST http://localhost:3003/sitemap/discovery \
+curl -X POST http://localhost:3000/sitemap/discovery \
      -H "Content-Type: application/json" \
-     -d '{"domain": "google.com"}'
+     -d '{"domain": "example.com"}'
 ```
 
-### 2. Extract Keywords
+### 2. Extract URLs and Keywords
 
-Parse a specific sitemap URL to extract URLs and keywords.
+`POST /sitemap/extract` accepts `sitemapUrl` and an optional `format`. The default JSON response includes URL and keyword counts and the `keywordLists` array. Use `format: "text"` for one keyword phrase per line.
 
-- **Endpoint**: `POST /sitemap/extract`
-- **Body**:
-
-```json
-{
-  "sitemapUrl": "https://example.com/sitemap.xml",
-  "format": "json"
-}
-```
-
-- **Sample Request**:
+Replace the example sitemap URL with one returned by discovery.
 
 ```bash
-curl -X POST http://localhost:3003/sitemap/extract \
+curl -X POST http://localhost:3000/sitemap/extract \
      -H "Content-Type: application/json" \
      -d '{"sitemapUrl": "https://example.com/sitemap.xml", "format": "json"}'
 ```
+
+For `urls` and `keywordLists` in one JSON response, add `Accept: application/vnd.sitemap-discovery.urls+json` as the browser does. A `format` of `text` takes priority over this header.
+
+An index returns `type: "sitemapindex"` and its immediate child URLs in `sitemaps`. Submit a child URL to the same route to inspect that file.
 
 ## Project Structure
 
@@ -142,26 +116,31 @@ curl -X POST http://localhost:3003/sitemap/extract \
 │   ├── routes/           # API endpoint definitions
 │   ├── services/         # Core business logic for discovery and extraction
 │   ├── schemas/          # Zod validation schemas for requests
-│   ├── middleware/       # Custom Express middleware (validation, error handling)
+│   ├── middleware/       # Hono JSON parsing, validation, and error handling
 │   ├── utils/            # Shared utilities and logger configuration
 │   ├── types/            # TypeScript interface and type definitions
 │   ├── config/           # Application configuration management
-│   ├── app.ts            # Express application setup
-│   └── index.ts          # Server entry point
-├── dist/                 # Compiled JavaScript files
+│   ├── web/              # Hono JSX, Tailwind, and the browser client
+│   ├── app.ts            # Fetch-compatible Hono app
+│   └── index.ts          # Local Node server and static file serving
+├── public/assets/        # Generated stylesheet and browser bundle
+├── dist/                 # Compiled server code
+├── .env.example          # Local environment template
 └── tsconfig.json         # TypeScript configuration
 ```
 
 ## Scripts / Commands
 
-| Command            | Description                                                 |
-| ------------------ | ----------------------------------------------------------- |
-| `npm run dev`      | Starts the development server with hot-reloading using tsx  |
-| `npm run build`    | Compiles the TypeScript source code into the dist directory |
-| `npm start`        | Runs the compiled production build                          |
-| `npm run format`   | Formats the codebase using Prettier                         |
-| `npm run lint`     | Analyzes code for potential errors and styling issues       |
-| `npm run lint:fix` | Automatically fixes linting errors where possible           |
+| Command                | Description                                             |
+| ---------------------- | ------------------------------------------------------- |
+| `npm run dev`          | Starts the server and watches server and browser files. |
+| `npm run build`        | Compiles the server and generates browser assets.       |
+| `npm run build:assets` | Builds the stylesheet and browser bundle.               |
+| `npm start`            | Starts the compiled production server.                  |
+| `npm run typecheck`    | Checks TypeScript without emitting files.               |
+| `npm run format`       | Formats the codebase using Prettier.                    |
+| `npm run lint`         | Checks the codebase with ESLint.                        |
+| `npm run lint:fix`     | Applies available ESLint fixes.                         |
 
 ## Contributing
 

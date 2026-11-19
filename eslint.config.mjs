@@ -8,7 +8,7 @@ import process from 'node:process';
 export default tseslint.config(
   // Global ignores
   {
-    ignores: ['dist/', 'node_modules/', 'example/', '.agents/', 'public/assets/tool.js'],
+    ignores: ['dist/', 'node_modules/', 'public/assets/tool.js'],
   },
 
   // Base configs
