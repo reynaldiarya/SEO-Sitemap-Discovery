@@ -6,7 +6,7 @@ loadEnv();
 const envSchema = z.object({
   PORT: z
     .string()
-    .default('3003')
+    .default('3000')
     .transform((val) => parseInt(val, 10)),
 });
 

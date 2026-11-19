@@ -1,2 +1,2 @@
-export { extractKeywords } from './extractor';
-export { logger } from './logger';
+export { extractKeywords } from './extractor.js';
+export { logger } from './logger.js';

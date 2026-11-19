@@ -1,21 +1,21 @@
-import type { Request, Response, NextFunction } from 'express';
+import type { ErrorHandler } from 'hono';
 
-import { logger } from '../utils';
+import { logger } from '../utils/index.js';
 
 /**
  * Global middleware to handle uncaught errors in controllers.
  * Prevents application crashes and returns a clean error response to the client.
  */
-export const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
+export const errorHandler: ErrorHandler = (err, c) => {
   logger.error(err.message);
 
-  // If in development mode, log the stack trace for easier debugging
-  if (process.env.NODE_ENV === 'development') {
+  const development = process.env.NODE_ENV === 'development';
+  if (development) {
     logger.debug(err.stack);
   }
 
-  res.status(500).json({
-    error: 'Internal Server Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : undefined,
-  });
+  return c.json(
+    { error: 'Internal Server Error', message: development ? err.message : undefined },
+    500
+  );
 };

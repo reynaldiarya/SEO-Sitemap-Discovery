@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { URL } from 'url';
 
-import { logger } from '../utils';
-import type { DiscoveryResponse } from '../types';
+import { logger } from '../utils/index.js';
+import type { DiscoveryResponse } from '../types/index.js';
 
 export class SitemapDiscoveryService {
   private commonPaths = [

@@ -1,24 +1,26 @@
-import type { Request, Response, RequestHandler } from 'express';
+import type { Handler } from 'hono';
 
-import { sitemapDiscoveryService } from '../services';
-import { logger } from '../utils';
-import type { DiscoveryRequest, DiscoveryResponse } from '../types';
+import type { JsonBodyEnv, ValidatedJson } from '../middleware/index.js';
+import type { DiscoverySchemaType } from '../schemas/index.js';
+import { sitemapDiscoveryService } from '../services/index.js';
+import { logger } from '../utils/index.js';
 
 /**
  * Controller to discover sitemaps for a given domain.
  */
-export const discoverSitemapController: RequestHandler = async (
-  req: Request<Record<string, unknown>, unknown, DiscoveryRequest>,
-  res: Response
-) => {
-  const { domain } = req.body;
+export const discoverSitemapController: Handler<
+  JsonBodyEnv,
+  string,
+  ValidatedJson<DiscoverySchemaType['body']>
+> = async (c) => {
+  const { domain } = c.req.valid('json');
 
   try {
-    const result: DiscoveryResponse = await sitemapDiscoveryService.discoverSitemaps(domain);
-    res.json(result);
+    const result = await sitemapDiscoveryService.discoverSitemaps(domain);
+    return c.json(result);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     logger.error(`Sitemap Discovery Error for ${domain}: ${message}`);
-    res.status(500).json({ error: 'Failed to discover sitemaps', details: message });
+    return c.json({ error: 'Failed to discover sitemaps', details: message }, 500);
   }
 };

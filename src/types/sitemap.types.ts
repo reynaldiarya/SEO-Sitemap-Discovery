@@ -1,3 +1,5 @@
+export const SITEMAP_URLS_MEDIA_TYPE = 'application/vnd.sitemap-discovery.urls+json';
+
 export interface KeywordResult {
   keyword: string;
   count: number;
@@ -17,6 +19,12 @@ export interface ExtractionResponse {
   keywordLists?: string | string[];
   error?: string;
   details?: string;
+}
+
+export interface UrlExtractionResponse {
+  type: 'extraction';
+  urls: readonly string[];
+  keywordLists: NonNullable<ExtractionResponse['keywordLists']>;
 }
 
 export interface SitemapRequest {

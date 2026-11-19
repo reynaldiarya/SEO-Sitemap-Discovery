@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as xml2js from 'xml2js';
 import { URL } from 'url';
 
-import { extractKeywords } from '../utils';
-import type { ExtractionResponse, KeywordResult, SitemapIndexResponse } from '../types';
+import { extractKeywords } from '../utils/index.js';
+import type { ExtractionResponse, KeywordResult, SitemapIndexResponse } from '../types/index.js';
 
 interface SitemapUrlEntry {
   loc: string[];
@@ -39,7 +39,8 @@ export class SitemapService {
    * Handles standard sitemaps (urlset) or sitemap indexes (list of sitemaps).
    */
   public async extractSitemap(
-    sitemapUrl: string
+    sitemapUrl: string,
+    onUrls?: (urls: readonly string[]) => void
   ): Promise<ExtractionResponse | SitemapIndexResponse> {
     const response = await axios.get(sitemapUrl);
     const result = (await this.parseXml(response.data)) as ParsedSitemap;
@@ -55,7 +56,7 @@ export class SitemapService {
 
     // If the sitemap is a standard sitemap (containing page/article URLs)
     if (result.urlset && result.urlset.url) {
-      return this.processUrlSet(result.urlset.url);
+      return this.processUrlSet(result.urlset.url, onUrls);
     }
 
     throw new Error('Invalid sitemap format');
@@ -64,7 +65,10 @@ export class SitemapService {
   /**
    * Processes a list of URLs from a sitemap to extract keywords.
    */
-  private processUrlSet(entries: SitemapUrlEntry[]): ExtractionResponse {
+  private processUrlSet(
+    entries: SitemapUrlEntry[],
+    onUrls?: (urls: readonly string[]) => void
+  ): ExtractionResponse {
     const urls: string[] = [];
     entries.forEach((entry) => {
       // Extract the URL from the <loc> tag
@@ -72,6 +76,7 @@ export class SitemapService {
         urls.push(entry.loc[0]);
       }
     });
+    onUrls?.(urls);
 
     const phraseCounts: Record<string, number> = {};
     let ignoredCount = 0;

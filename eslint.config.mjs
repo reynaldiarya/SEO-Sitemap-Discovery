@@ -8,7 +8,7 @@ import process from 'node:process';
 export default tseslint.config(
   // Global ignores
   {
-    ignores: ['dist/', 'node_modules/'],
+    ignores: ['dist/', 'node_modules/', 'example/', '.agents/', 'public/assets/tool.js'],
   },
 
   // Base configs
@@ -19,7 +19,7 @@ export default tseslint.config(
 
   // TypeScript files configuration
   {
-    files: ['**/*.ts', '**/*.mts'],
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -28,7 +28,7 @@ export default tseslint.config(
         ...globals.es2022,
       },
       parserOptions: {
-        project: false, // set ke tsconfig.json jika ingin rules type-aware
+        project: false,
       },
     },
     plugins: {
@@ -58,10 +58,14 @@ export default tseslint.config(
       ],
       'import/no-unresolved': 'error',
 
-      // Style (delegasikan ke Prettier)
       'prefer-const': 'warn',
       'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     },
+  },
+
+  {
+    files: ['src/web/tool.ts'],
+    languageOptions: { globals: globals.browser },
   },
 
   // Config files override
